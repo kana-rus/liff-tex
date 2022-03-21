@@ -13,9 +13,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className={styles.mainStyle}>
         <div>test</div>
-        <input type="text" />
+        <input type="text" className={styles.inputStyle}/>
       </main>
     </>
   )

@@ -1,3 +1,7 @@
-.main {
+.mainStyle {
     display: block;
+}
+
+.inputStyle {
+    width: 100%;
 }
