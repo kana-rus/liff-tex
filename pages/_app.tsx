@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     import('@line/liff').then(() => {
       liff.init({ liffId: process.env.LIFF_ID! })
     })
-  })
+  }, [])
 
   return <Component {...pageProps} />
 }
