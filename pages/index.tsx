@@ -3,7 +3,9 @@ import Head from 'next/head'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 import styles from '../styles/main.module.css'
+
 import katex from 'katex'
+import html2canvas from 'html2canvas'
 
 
 const Home: NextPage = () => {
@@ -25,6 +27,16 @@ const Home: NextPage = () => {
     )
   }
 
+  const handleClick = () => {
+    html2canvas(document.getElementById('katex-area')!).then(canvas => {
+      const downloadEl = document.createElement("a")
+      downloadEl.download = "KaTeX.png"
+      downloadEl.href = canvas.toDataURL("image/png")
+      downloadEl.click()
+      console.log("clicked!")
+    })
+  }
+
   return (
     <>
       <Head>
@@ -38,6 +50,11 @@ const Home: NextPage = () => {
           className={styles.inputStyle}
           onChange={(e) => handleChange(e)}
         />
+        <button className={styles.buttonStyle}
+          onClick={handleClick}
+        >
+          download
+        </button>
       </main>
     </>
   )
