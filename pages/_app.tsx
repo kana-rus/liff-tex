@@ -11,7 +11,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // to avoid 'window is not defined' error
     import('@line/liff').then(() => {
-      liff.init({ liffId: process.env.LIFF_ID! })
+      liff.init({
+        liffId: process.env.LIFF_ID!
+      }).then(() => {
+        console.log("|> start liff.init()")
+      }).catch((err) => {
+        console.log(`|> liff init failed: ${err}`)
+        if (!process.env.liffId) {
+          console.info("|> liffId is null")
+        }
+      })
     })
   }, [])
 
