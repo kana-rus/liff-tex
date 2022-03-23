@@ -1,29 +1,28 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { useEffect } from 'react'
-
-import liff from '@line/liff'
-//import { Liff } from '@line/liff'
-
+import { useEffect, useState } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // Execute liff.init() when the app is initialized
+  const [liffObject, setLiffObject] = useState(null)
+  const LiffID = process.env.LIFF_ID
+
   useEffect(() => {
-    // to avoid 'window is not defined' error
-    import('@line/liff').then(() => {
-      liff.init({
-        liffId: process.env.LIFF_ID!
-      }).then(() => {
-        console.log("|> start liff.init()")
-      }).catch((err) => {
-        console.log(`|> liff init failed: ${err}`)
-        if (!process.env.liffId) {
-          console.info("|> liffId is null")
-        }
-      })
+    import('@line/liff').then((liff: any) => {
+      liff
+        .init({ liffId: LiffID })
+        .then(() => {
+          if (!liff.isLoggedIn()) {
+            liff.login({})
+          }
+          setLiffObject(liff)
+        })
+        .catch((err: any) => {
+          console.error({ err })
+        })
     })
   }, [])
 
+  pageProps.liff = liffObject
   return <Component {...pageProps} />
 }
 
