@@ -32,10 +32,12 @@ const Home: NextPage = () => {
       const downloadLink = document.getElementsByTagName("a")[0]
       const dataURL = canvas.toDataURL()
       downloadLink.href = dataURL
-      // downloadLink.click()
+      downloadLink.click()
 
+      /*
       const downloadImage = document.getElementsByTagName('img')[0]
       downloadImage.src = dataURL
+      */
     })
   }
 
@@ -61,7 +63,6 @@ const Home: NextPage = () => {
         <a id='download-link' download='KaTeX.png' className={styles.linkStyle}>
           downloadLink
         </a>
-        <img className={styles.imageStyle}/>
 
       </main>
     </>
