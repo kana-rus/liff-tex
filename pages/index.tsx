@@ -10,7 +10,7 @@ import html2canvas from 'html2canvas'
 
 const Home: NextPage = () => {
 
-  const [liffObject, setLiffObject] = useState<any>()
+  //const [liffObject, setLiffObject] = useState<any>()
   const LiffID = process.env.LIFF_ID
   useEffect(() => {
     import('@line/liff').then((liff: any) => {
@@ -22,19 +22,19 @@ const Home: NextPage = () => {
           if (!liff.isLoggedIn()) {
             liff.login({})
           }
-          setLiffObject(liff)
+          //setLiffObject(liff)
+          // trial ---
+          liff.openWindow({
+            url: "https://liff-tex.vercel.app/",
+            external: true,
+          })
+          // ---------
         })
         .catch((err: any) => {
           console.error({ err })
         })
     })
   }, [])
-  // trial ---
-  liffObject.openWindow({
-    url: "https://liff-tex.vercel.app/",
-    external: true,
-  })
-  // ---------
 
 
 
