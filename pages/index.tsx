@@ -7,48 +7,39 @@ import styles from '../styles/main.module.css'
 import katex from 'katex'
 import html2canvas from 'html2canvas'
 
+import { Liff } from '@line/liff'
+import liff from '@line/liff'
+import LiffError from '@line/liff'
 
 const Home: NextPage = () => {
 
-  //const [liffObject, setLiffObject] = useState<any>()
-  const LiffID = process.env.LIFF_ID
+  const [liffObject, setLiffObject] = useState<Liff>()
+  const LiffID = process.env.LIFF_ID || ""
   useEffect(() => {
-    import('@line/liff').then((liff: any) => {
-      liff
-        .init({
-          liffId: LiffID
-        })
-        .then(() => {
-          if (!liff.isLoggedIn()) {
-            liff.login({})
-          }
-          //setLiffObject(liff)
-
-          /* trial ---
-          liff.openWindow({
-            url: "https://liff-tex.vercel.app/",
-            external: true,
-          })
-          */
-
-          // trial
-          liff.sendMessages([
-            {
-              type: "text",
-              text: "Messaging test",
-            }
-          ]).catch((err: any) => {
-            console.log(err)
-          })
-          
-        })
-        .catch((err: any) => {
-          console.error(err)
-        })
-    })
+    liff
+      .init({
+        liffId: LiffID,
+        withLoginOnExternalBrowser: true,
+      })
+      .then(() => {
+        setLiffObject(liff)
+      })
+      .catch(() => {
+        console.error("error in liff.init()")
+      })
   }, [])
-
-
+  const sendMessage = (liffObj: Liff) => {  
+    liffObj.sendMessages([
+      {
+        type: "text",
+        text: "messaging test",
+      },
+    ])
+    .catch(() => {
+      console.error("error in sendMessage()")
+    })
+  }
+  
 
 
   const [katexFontSize, setKatexFontSize] = useState(1.6)
@@ -80,6 +71,9 @@ const Home: NextPage = () => {
       const downloadImage = document.getElementsByTagName('img')[0]
       downloadImage.src = dataURL
       */
+
+      // trial
+      sendMessage(liffObject!)
     })
   }
 
