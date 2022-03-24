@@ -7,27 +7,33 @@ import styles from '../styles/main.module.css'
 import katex from 'katex'
 import html2canvas from 'html2canvas'
 
+
+/*
 import { Liff } from '@line/liff'
 import liff from '@line/liff'
 import LiffError from '@line/liff'
+import dynamic from 'next/dynamic'
+*/
 
 const Home: NextPage = () => {
 
-  const [liffObject, setLiffObject] = useState<Liff>()
+  const [liffObject, setLiffObject] = useState<any>()
   const LiffID = process.env.LIFF_ID || ""
   useEffect(() => {
-    liff
-      .init({
-        liffId: LiffID,
-        withLoginOnExternalBrowser: true,
-      })
-      .then(() => {
-        setLiffObject(liff)
-      })
-      .catch(() => {
-        console.error("error in liff.init()")
-      })
+    import('@line/liff').then(liffFile => {
+      const liff = liffFile.default
+      liff
+        .init({
+          liffId: LiffID,
+          withLoginOnExternalBrowser: true,
+        })
+        .then(() => {
+          setLiffObject(liff)
+        })
+    })
   }, [])
+
+ /*
   const sendMessage = (liffObj: Liff) => {  
     liffObj.sendMessages([
       {
@@ -39,6 +45,7 @@ const Home: NextPage = () => {
       console.error("error in sendMessage()")
     })
   }
+  */
   
 
 
@@ -71,9 +78,6 @@ const Home: NextPage = () => {
       const downloadImage = document.getElementsByTagName('img')[0]
       downloadImage.src = dataURL
       */
-
-      // trial
-      sendMessage(liffObject!)
     })
   }
 
