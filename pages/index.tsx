@@ -30,10 +30,9 @@ const Home: NextPage = () => {
   const handleClick = () => {
     html2canvas(document.getElementById('katex-area')!).then(canvas => {
       const downloadEl = document.createElement("a")
-      downloadEl.download = "KaTeX.png"
-      downloadEl.href = canvas.toDataURL("image/png")
+      downloadEl.download = "KaTeX.jpg"
+      downloadEl.href = canvas.toDataURL("image/jpg")
       downloadEl.click()
-      console.log("clicked!")
     })
   }
 
