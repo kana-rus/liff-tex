@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     html2canvas(document.getElementById('katex-area')!).then(canvas => {
       const downloadEl = document.createElement("a")
       downloadEl.download = "KaTeX.jpg"
-      downloadEl.href = canvas.toDataURL("image/jpg")
+      downloadEl.href = canvas.toDataURL("image/jpeg")
       downloadEl.click()
     })
   }
