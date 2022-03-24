@@ -23,15 +23,27 @@ const Home: NextPage = () => {
             liff.login({})
           }
           //setLiffObject(liff)
-          // trial ---
+
+          /* trial ---
           liff.openWindow({
             url: "https://liff-tex.vercel.app/",
             external: true,
           })
-          // ---------
+          */
+
+          // trial
+          liff.sendMessages([
+            {
+              type: "text",
+              text: "Messaging test",
+            }
+          ]).catch((err: any) => {
+            console.log(err)
+          })
+          
         })
         .catch((err: any) => {
-          console.error({ err })
+          console.error(err)
         })
     })
   }, [])
