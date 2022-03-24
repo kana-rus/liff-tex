@@ -29,10 +29,9 @@ const Home: NextPage = () => {
 
   const handleClick = () => {
     html2canvas(document.getElementById('katex-area')!).then(canvas => {
-      const downloadEl = document.createElement("a")
-      downloadEl.download = "KaTeX.jpg"
-      downloadEl.href = canvas.toDataURL("image/jpeg")
-      downloadEl.click()
+      const downloadLink = document.getElementsByTagName("a")[0]
+      downloadLink.href = canvas.toDataURL()
+      downloadLink.click()
     })
   }
 
@@ -54,6 +53,9 @@ const Home: NextPage = () => {
         >
           download
         </button>
+        <a id='download-link' download='KaTeX.png' className={styles.linkStyle}>
+          downloadLink
+        </a>
       </main>
     </>
   )
