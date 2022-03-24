@@ -9,6 +9,36 @@ import html2canvas from 'html2canvas'
 
 
 const Home: NextPage = () => {
+
+  const [liffObject, setLiffObject] = useState<any>()
+  const LiffID = process.env.LIFF_ID
+  useEffect(() => {
+    import('@line/liff').then((liff: any) => {
+      liff
+        .init({
+          liffId: LiffID
+        })
+        .then(() => {
+          if (!liff.isLoggedIn()) {
+            liff.login({})
+          }
+          setLiffObject(liff)
+        })
+        .catch((err: any) => {
+          console.error({ err })
+        })
+    })
+  }, [])
+  // trial ---
+  liffObject.openWindow({
+    url: "https://liff-tex.vercel.app/",
+    external: true,
+  })
+  // ---------
+
+
+
+
   const [katexFontSize, setKatexFontSize] = useState(1.6)
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
