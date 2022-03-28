@@ -1,7 +1,7 @@
 # Usage
 (This app is supposed to be used with a smartphone in LINE openchat)
 
-1. Send URL https://liff-tex-hpd5b18y5-kana-rus.vercel.app?openExternalBrowser=1 as a message to a openchat (it may be better to fix it at the header by "announcing" the mmessage).
+1. Send URL https://liff-tex-egwqnfzr0-kana-rus.vercel.app/?openExternalBrowser=1 as a message to a openchat (it may be better to fix it at the header by "announcing" the mmessage).
 2.  The URL above contains parameter "openExternalBrowser=1", this forces LINE to open this URL by external browser (Googe Chrome, for example) instaed of LINE's own browser. So when anyone touch this, he or she automatically moves to liff-tex page opend by another browser.
 3.  Write KaTeX expressions in textarea (which has "download" button on it's bottom). This app will render KaTeX in rendering area above as you wrote.
 4. Whenever you're in the page, you can download .png image of the rendering area by pushing "download".
