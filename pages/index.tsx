@@ -1,6 +1,6 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import { ChangeEvent, useEffect, useState } from 'react'
+import Head from 'next/head'
+import type { NextPage } from 'next'
 
 import styles from '../styles/main.module.css'
 
@@ -8,15 +8,37 @@ import katex from 'katex'
 import html2canvas from 'html2canvas'
 
 
-/*
-import { Liff } from '@line/liff'
-import liff from '@line/liff'
-import LiffError from '@line/liff'
-import dynamic from 'next/dynamic'
-*/
+const post = (dataURL: string) => {
+  const form = document.createElement('form')
+  form.action = process.env.API_URL + '?openExternalBrowser=1'
+  form.method = 'post'
+  form.innerHTML = `<input name='dataURL' value=${dataURL}>`
+  document.body.appendChild(form)
+  form.submit()
+}
+const postDataURLof = (element: HTMLElement) => {
+  html2canvas(element)
+    .then(canvas => {
+      const dataURL = canvas.toDataURL()
+     post(JSON.stringify(dataURL))
+    })
+}
+const adjustKatexFontSize = (
+    area: HTMLElement,
+    currentText: string,
+    currentFontSize: number
+  ) => {
+    katex.render(String.raw`${currentText}`, area, {
+      throwOnError: false,
+      displayMode: true
+    })
+    const wRate = area.clientWidth / area.scrollWidth
+    const hRate = area.clientHeight / area.scrollHeight
+    return currentFontSize * (wRate*wRate) * (hRate*hRate)
+}
+
 
 const Home: NextPage = () => {
-
   const [liffObject, setLiffObject] = useState<any>()
   const LiffID = process.env.LIFF_ID || ""
   useEffect(() => {
@@ -33,52 +55,24 @@ const Home: NextPage = () => {
     })
   }, [])
 
- /*
-  const sendMessage = (liffObj: Liff) => {  
-    liffObj.sendMessages([
-      {
-        type: "text",
-        text: "messaging test",
-      },
-    ])
-    .catch(() => {
-      console.error("error in sendMessage()")
-    })
-  }
-  */
-  
-
-
+  const [katexArea, setKatexArea] = useState<HTMLElement>()
+  useEffect(() => {
+    setKatexArea(
+      document.getElementById('katex-area')!
+    )
+  }, [])
   const [katexFontSize, setKatexFontSize] = useState(1.6)
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const currentText = e.target.value
-    const katexArea = document.getElementById("katex-area")!
-    katex.render(String.raw`${currentText}`, katexArea!, {
-      throwOnError: false,
-      displayMode: true
-    })
-
-    const rate = katexArea.clientWidth / katexArea.scrollWidth
-    const newKatexFontSize = katexFontSize * rate * rate
+    const newKatexFontSize = adjustKatexFontSize(katexArea!, currentText, katexFontSize)
     setKatexFontSize(newKatexFontSize)
     document.documentElement.style.setProperty(
       '--katex-font-size', `${newKatexFontSize}em`
     )
   }
-
   const handleClick = () => {
-    html2canvas(document.getElementById('katex-area')!).then(canvas => {
-      const downloadLink = document.getElementsByTagName("a")[0]
-      const dataURL = canvas.toDataURL()
-      downloadLink.href = dataURL
-      downloadLink.click()
-
-      /*
-      const downloadImage = document.getElementsByTagName('img')[0]
-      downloadImage.src = dataURL
-      */
-    })
+    postDataURLof(katexArea!)
   }
 
   return (
