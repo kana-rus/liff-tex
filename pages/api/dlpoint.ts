@@ -6,7 +6,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         res.send(`
             <h1>Downloaded!</h1>
             <h2>(Go back to LINE)</h2>
-            <p>${dataURL}</p>
+            <a download="KaTeX.png" href=${dataURL}></a>
+            <script>
+                window.onload = function() {
+                    document.getElementsByTagName("a")[0].click()
+                }
+            </script>
         `)
     } 
 }
