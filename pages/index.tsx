@@ -49,8 +49,7 @@ const getProperKatexFontSize = (
     return currentFontSize * (wRate*wRate) * (hRate*hRate)
 }
 
-
-export default () => {
+const Home = () => {
   const LiffID = process.env.LIFF_ID || ""
   useEffect(() => {
     import('@line/liff').then(liffFile => {
@@ -107,3 +106,5 @@ export default () => {
     </>
   )
 }
+
+export default Home
