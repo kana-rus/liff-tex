@@ -7,10 +7,10 @@ import styles from '../styles/main.module.css'
 import katex from 'katex'
 import html2canvas from 'html2canvas'
 
-
+/*
 const post = (dataURL: string) => {
   const form = document.createElement('form')
-  form.action = /*'https://liff-tex.vercel.app*/'/api/dlpoint?openExternalBrowser=1'
+  form.action = '/api/dlpoint?openExternalBrowser=1'
   form.method = 'post'
   form.innerHTML = `<input name='dataURL' value=${dataURL}>`
   document.body.appendChild(form)
@@ -21,6 +21,15 @@ const postDataURLof = (element: HTMLElement) => {
     .then(canvas => {
       const dataURL = canvas.toDataURL()
      post(JSON.stringify(dataURL))
+    })
+}
+*/
+const downloadKaTeX = (area: HTMLElement) => {
+  html2canvas(area)
+    .then(canvas => {
+      const downloadLink = document.getElementsByTagName("a")[0]
+      downloadLink.href = canvas.toDataURL()
+      downloadLink.click()
     })
 }
 const adjustKatexFontSize = (
@@ -72,7 +81,7 @@ const Home: NextPage = () => {
     )
   }
   const handleClick = () => {
-    postDataURLof(katexArea!)
+    downloadKaTeX(katexArea!)
   }
 
   return (
@@ -88,16 +97,10 @@ const Home: NextPage = () => {
           className={styles.inputStyle}
           onChange={(e) => handleChange(e)}
         />
-        <button className={styles.buttonStyle}
-          onClick={handleClick}
-        >
+        <button className={styles.buttonStyle} onClick={handleClick}>
           download
         </button>
-
-        <a id='download-link' download='KaTeX.png' className={styles.linkStyle}>
-          downloadLink
-        </a>
-
+        <a download='KaTeX.png'></a>
       </main>
     </>
   )
