@@ -10,7 +10,7 @@ import html2canvas from 'html2canvas'
 
 const post = (dataURL: string) => {
   const form = document.createElement('form')
-  form.action = process.env.API_URL + '?openExternalBrowser=1'
+  form.action = /*'https://liff-tex.vercel.app*/'/api/dlpoint?openExternalBrowser=1'
   form.method = 'post'
   form.innerHTML = `<input name='dataURL' value=${dataURL}>`
   document.body.appendChild(form)
