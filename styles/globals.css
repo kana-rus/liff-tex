@@ -1,5 +1,5 @@
 :root {
-  --katex-font-size: 1.6em;
+  --katex-font-size: 3em;
 }
 
 html,
@@ -17,6 +17,17 @@ a {
   box-sizing: border-box;
 }
 
+/*
+.katex-display {
+  display: table-cell;
+}
+*/
 .katex {
   font-size: var(--katex-font-size);
+  border: solid;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }

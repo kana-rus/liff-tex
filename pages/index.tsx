@@ -23,6 +23,12 @@ const postDataURLof = (element: HTMLElement) => {
     })
 }
 */
+const defaultKatexFontSize = 3
+const Min = (x: number, y: number): number => {
+  if (x <= y) return x
+  return y
+}
+
 const downloadKatexImage = (area: HTMLElement) => {
   html2canvas(area)
     .then(canvas => {
@@ -35,7 +41,8 @@ const renderKatex = (
     katexArea: HTMLElement,
     inputText: string
   ) => {
-    katex.render(String.raw`${inputText}`, katexArea, {
+    katex.render(
+      String.raw`${inputText}`, katexArea, {
       throwOnError: false,
       displayMode: true
     })
@@ -44,9 +51,21 @@ const getProperKatexFontSize = (
     katexArea: HTMLElement,
     currentFontSize: number
   ): number => {
-    const wRate = katexArea.clientWidth / katexArea.scrollWidth
-    const hRate = katexArea.clientHeight / katexArea.scrollHeight
-    return currentFontSize * (wRate*wRate) * (hRate*hRate)
+    const katexBox = document.getElementsByClassName('katex')[0]
+
+    const wRate = katexArea.clientWidth / katexBox.clientWidth
+    const hRate = katexArea.clientHeight / katexBox.clientHeight
+
+    return Min(
+      Min(
+        currentFontSize * wRate,
+        defaultKatexFontSize
+      ),
+      Min(
+        currentFontSize * hRate,
+        defaultKatexFontSize
+      )
+    )
 }
 
 const Home = () => {
@@ -62,7 +81,7 @@ const Home = () => {
     })
   }, [])
 
-  const [katexFontSize, setKatexFontSize] = useState(1.6)
+  const [katexFontSize, setKatexFontSize] = useState(defaultKatexFontSize)
   const [katexArea, setKatexArea] = useState<HTMLElement>()
   useEffect(() => {
     setKatexArea(
@@ -73,11 +92,13 @@ const Home = () => {
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     renderKatex(katexArea!, e.target.value)
+    
     const newKatexFontSize = getProperKatexFontSize(katexArea!, katexFontSize)
     setKatexFontSize(newKatexFontSize)
     document.documentElement.style.setProperty(
       '--katex-font-size', `${newKatexFontSize}em`
     )
+
   }
   const handleClick = () => {
     downloadKatexImage(katexArea!)

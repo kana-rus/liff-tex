@@ -30,9 +30,12 @@
     position: absolute;
     top: 5%;
 
-    border: solid;
     word-break: break-all;
+    /*
+    border: solid;
     overflow: scroll;
+    */
+    overflow: visible;
 }
 
 .buttonStyle {
@@ -51,26 +54,4 @@
 }
 .buttonStyle:hover {
     background-color: rgba(60,60,120, 0.5);
-}
-
-/*
-.linkStyle {
-    display: none;
-}
-*/
-
-.imageStyle {
-    /*
-    width: 80%;
-    height: 40%;
-    
-    position: absolute;
-    margin-left: 10%;
-    top: 5%;
-    */
-
-    width: 40%;
-    height: 20%;
-
-    position: absolute;
 }
