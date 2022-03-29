@@ -29,8 +29,8 @@ const Min = (x: number, y: number): number => {
   return y
 }
 
-const downloadKatexImage = (area: HTMLElement) => {
-  html2canvas(area)
+const downloadKatexImage = (katex: HTMLElement) => {
+  html2canvas(katex)
     .then(canvas => {
       const downloadLink = document.getElementsByTagName("a")[0]
       downloadLink.href = canvas.toDataURL()
@@ -101,7 +101,7 @@ const Home = () => {
 
   }
   const handleClick = () => {
-    downloadKatexImage(katexArea!)
+    downloadKatexImage(document.getElementsByClassName('katex')[0] as HTMLElement)
   }
 
   return (

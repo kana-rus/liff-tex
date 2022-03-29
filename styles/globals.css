@@ -17,14 +17,9 @@ a {
   box-sizing: border-box;
 }
 
-/*
-.katex-display {
-  display: table-cell;
-}
-*/
 .katex {
   font-size: var(--katex-font-size);
-  border: solid;
+  /* border: solid; */
 
   position: absolute;
   top: 50%;
