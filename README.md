@@ -6,7 +6,7 @@
 3.  Write KaTeX expressions in textarea (which has "download" button on it's bottom). This app will render KaTeX in rendering area above as you wrote.
 4. Whenever you're in the page, you can download .png image of the rendering area by pushing "download".
 5. If you get a KaTeX image you want, go back to LINE (you only have to once put back your smartphone's history).
-6. Downloaded images will be in proper size if you made them with smartphone. If not, manufact it in LINE app. As you've done, send it to the openchat.
+6. Downloaded images will be in proper size (if not, modify them manually in LINE app. As you've done), send it to the openchat.
 
 # Why external browser
 In LINE's own browser or LIFF app , we can't download any file to local machines because of implementaion of LINE app itself. Of course web apps can't resolve this. So if we want download something from web, we have to open it externally.
