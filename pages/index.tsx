@@ -23,11 +23,7 @@ const postDataURLof = (element: HTMLElement) => {
     })
 }
 */
-const defaultKatexFontSize = 3
-const Min = (x: number, y: number): number => {
-  if (x <= y) return x
-  return y
-}
+
 
 const downloadKatexImage = (katex: HTMLElement) => {
   html2canvas(katex)
@@ -66,6 +62,12 @@ const getProperKatexFontSize = (
         defaultKatexFontSize
       )
     )
+}
+
+const defaultKatexFontSize = 3
+const Min = (x: number, y: number): number => {
+  if (x <= y) return x
+  return y
 }
 
 const Home = () => {
@@ -108,7 +110,6 @@ const Home = () => {
     <>
       <Head>
         <title>LIFF-TEX</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.mainStyle}>
         <div
